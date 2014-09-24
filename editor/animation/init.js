@@ -179,7 +179,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
                 paper = Raphael(dom, sizeXpx, sizeYpx);
 
                 for (var i = 0; i < grid.length; i++) {
-                    for (var j = 0; j < grid.length; j++) {
+                    for (var j = 0; j < grid[0].length; j++) {
                         var r = paper.rect(cell * j + pad, cell * i + pad, cell, cell);
                         var isNeigh = false;
                         if (i === row && j === col) {
