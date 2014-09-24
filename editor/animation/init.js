@@ -163,8 +163,6 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
             var sizeYpx;
 
 
-            var circles = paper.set();
-            var grid = [];
 
             var attrRect = {"stroke": colorBlue4, "stroke-width": 2, "fill": colorBlue1};
             var attrRectBingo = {"stroke": colorBlue4, "stroke-width": 2, "fill": colorOrange1};
