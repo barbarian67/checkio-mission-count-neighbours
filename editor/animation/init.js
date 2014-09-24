@@ -50,9 +50,10 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
                 ],
                 50
             ];
-            var checkioInputStr = fname + '((';
-            for (var i = 0; i < checkioInput[0].length; i++) {
-                checkioInputStr += "<br>                  " +
+            var checkioInputStr = fname + '(<br>    (' +
+                JSON.stringify(checkioInput[0][i]).replace("[", "(").replace("]", ")") + ",";
+            for (var i = 1; i < checkioInput[0].length; i++) {
+                checkioInputStr += "<br>     " +
                     JSON.stringify(checkioInput[0][i]).replace("[", "(").replace("]", ")") + ",";
             }
             checkioInputStr += "), " + String(checkioInput[1]) + ", " + String(checkioInput[2]) + ")";
