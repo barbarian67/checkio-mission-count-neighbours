@@ -181,18 +181,20 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
                 for (var i = 0; i < grid.length; i++) {
                     for (var j = 0; j < grid.length; j++) {
                         var r = paper.rect(cell * j + pad, cell * i + pad, cell, cell);
-                        if (Math.abs(i - row) === 1 || Math.abs(j - col) === 1) {
-                            r.attr(attrRectNeigh);
-                        }
-                        else if (i === row && j === col) {
+                        var isNeigh = false;
+                        if (i === row && j === col) {
                             r.attr(attrRectBingo)
+                        }
+                        else if ("1101".indexOf(String(Math.abs(i - row)) + String(Math.abs(i - row)))) {
+                            r.attr(attrRectNeigh);
+                            isNeigh = true
                         }
                         else {
                             r.attr(attrRect)
                         }
                         if (grid[i][j] === 1) {
                             var c = paper.circle(cell * j + pad + cell / 2, cell * i + pad + cell / 2, cell / 4);
-                            if (Math.abs(i - row) === 1 || Math.abs(j - col) === 1) {
+                            if (isNeigh) {
                                 c.attr(attrCircleNeigh);
                             }
                             else {
