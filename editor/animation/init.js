@@ -40,13 +40,25 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
             }
 
             //YOUR FUNCTION NAME
-            var fname = 'checkio';
+            var fname = 'сount_neighbours';
 
-            var checkioInput = data.in;
-            var checkioInputStr = fname + '(' + JSON.stringify(checkioInput) + ')';
+            var checkioInput = data.in || [
+                [
+                    [0, 1, 0],
+                    [0, 0, 1],
+                    [1, 1, 1]
+                ],
+                50
+            ];
+            var checkioInputStr = fname + '((';
+            for (var i = 0; i < checkioInput[0].length; i++) {
+                checkioInputStr += "<br>                  " +
+                    JSON.stringify(checkioInput[0][i]).replace("[", "(").replace("]", ")") + ",";
+            }
+            checkioInputStr += "), " + String(checkioInput[1]) + ", " + String(checkioInput[2]) + ")";
 
             var failError = function (dError) {
-                $content.find('.call').html(checkioInputStr);
+                $content.find('.call div').html(checkioInputStr);
                 $content.find('.output').html(dError.replace(/\n/g, ","));
 
                 $content.find('.output').addClass('error');
@@ -66,9 +78,11 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
                 return false;
             }
 
-            $content.find('.call').html(checkioInputStr);
+            $content.find('.call div').html(checkioInputStr);
             $content.find('.output').html('Working...');
 
+            var svg = new SVG($content.find(".explanation")[0]);
+            svg.prepare(checkioInput[0], checkioInput[1], checkioInput[2]);
 
             if (data.ext) {
                 var rightResult = data.ext["answer"];
@@ -76,8 +90,8 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
                 var result = data.ext["result"];
                 var result_addon = data.ext["result_addon"];
 
-                //if you need additional info from tests (if exists)
                 var explanation = data.ext["explanation"];
+
                 $content.find('.output').html('&nbsp;Your result:&nbsp;' + JSON.stringify(userResult));
                 if (!result) {
                     $content.find('.answer').html('Right result:&nbsp;' + JSON.stringify(rightResult));
@@ -121,27 +135,76 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
 //            });
 //        });
 
-        var colorOrange4 = "#F0801A";
-        var colorOrange3 = "#FA8F00";
-        var colorOrange2 = "#FAA600";
-        var colorOrange1 = "#FABA00";
+        function SVG(dom) {
 
-        var colorBlue4 = "#294270";
-        var colorBlue3 = "#006CA9";
-        var colorBlue2 = "#65A1CF";
-        var colorBlue1 = "#8FC7ED";
+            var colorOrange4 = "#F0801A";
+            var colorOrange3 = "#FA8F00";
+            var colorOrange2 = "#FAA600";
+            var colorOrange1 = "#FABA00";
 
-        var colorGrey4 = "#737370";
-        var colorGrey3 = "#9D9E9E";
-        var colorGrey2 = "#C5C6C6";
-        var colorGrey1 = "#EBEDED";
+            var colorBlue4 = "#294270";
+            var colorBlue3 = "#006CA9";
+            var colorBlue2 = "#65A1CF";
+            var colorBlue1 = "#8FC7ED";
 
-        var colorWhite = "#FFFFFF";
-        //Your Additional functions or objects inside scope
-        //
-        //
-        //
+            var colorGrey4 = "#737370";
+            var colorGrey3 = "#9D9E9E";
+            var colorGrey2 = "#C5C6C6";
+            var colorGrey1 = "#EBEDED";
 
+            var colorWhite = "#FFFFFF";
+
+            var cell = 30;
+            var pad = 10;
+
+            var paper;
+
+            var sizeXpx;
+            var sizeYpx;
+
+
+            var circles = paper.set();
+            var grid = [];
+
+            var attrRect = {"stroke": colorBlue4, "stroke-width": 2, "fill": colorBlue1};
+            var attrRectBingo = {"stroke": colorBlue4, "stroke-width": 2, "fill": colorOrange1};
+            var attrRectNeigh = {"stroke": colorBlue4, "stroke-width": 2, "fill": colorBlue2};
+            var attrCircle = {"stroke": colorBlue4, "stroke-width": 1, "fill": colorBlue4};
+            var attrCircleNeigh = {"stroke": colorBlue4, "stroke-width": 1, "fill": colorOrange4};
+
+            this.prepare = function (grid, row, col) {
+
+                sizeXpx = cell * grid[0].length + 2 * pad;
+                sizeYpx = cell * grid.length + 2 * pad;
+
+                paper = Raphael(dom, sizeXpx, sizeYpx);
+
+                for (var i = 0; i < grid.length; i++) {
+                    for (var j = 0; j < grid.length; j++) {
+                        var r = paper.rect(cell * j + pad, cell * i + pad, cell, cell);
+                        if (Math.abs(i - row) === 1 || Math.abs(j - col) === 1) {
+                            r.attr(attrRectNeigh);
+                        }
+                        else if (i === row && j === col) {
+                            r.attr(attrRectBingo)
+                        }
+                        else {
+                            r.attr(attrRect)
+                        }
+                        if (grid[i][j] === 1) {
+                            var c = paper.circle(cell * j + p + cell / 2, cell * i + p + cell / 2, cell / 4);
+                            if (Math.abs(i - row) === 1 || Math.abs(j - col) === 1) {
+                                c.attr(attrCircleNeigh);
+                            }
+                            else {
+                                c.attr(attrCircle)
+                            }
+                        }
+                    }
+                }
+            };
+
+        }
 
     }
 );
