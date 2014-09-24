@@ -34,14 +34,19 @@ from checkio.referees import checkers
 
 from tests import TESTS
 
+cover = """def cover(f, data):
+    return f(tuple(tuple(row) for row in data[0]), data[1], data[2])
+"""
+
 api.add_listener(
     ON_CONNECT,
     CheckiOReferee(
         tests=TESTS,
         cover_code={
-            'python-27': cover_codes.unwrap_args,  # or None
-            'python-3': cover_codes.unwrap_args
+            'python-27': cover,
+            'python-3': cover
         },
+        function_name="count_neighbours"
         # checker=None,  # checkers.float.comparison(2)
         # add_allowed_modules=[],
         # add_close_builtins=[],
