@@ -190,7 +190,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
                             r.attr(attrRect)
                         }
                         if (grid[i][j] === 1) {
-                            var c = paper.circle(cell * j + p + cell / 2, cell * i + p + cell / 2, cell / 4);
+                            var c = paper.circle(cell * j + pad + cell / 2, cell * i + pad + cell / 2, cell / 4);
                             if (Math.abs(i - row) === 1 || Math.abs(j - col) === 1) {
                                 c.attr(attrCircleNeigh);
                             }
