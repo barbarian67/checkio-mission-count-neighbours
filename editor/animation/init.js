@@ -48,7 +48,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
                     [0, 0, 1],
                     [1, 1, 1]
                 ],
-                50
+                1, 1
             ];
             var checkioInputStr = fname + '(<br>    (' +
                 JSON.stringify(checkioInput[0][i]).replace("[", "(").replace("]", ")") + ",";
