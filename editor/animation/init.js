@@ -185,7 +185,7 @@ requirejs(['ext_editor_1', 'jquery_190', 'raphael_210', 'snap.svg_030'],
                         if (i === row && j === col) {
                             r.attr(attrRectBingo)
                         }
-                        else if ("1101".indexOf(String(Math.abs(i - row)) + String(Math.abs(i - row)))) {
+                        else if ("1101".indexOf(String(Math.abs(i - row)) + String(Math.abs(j - col)))) {
                             r.attr(attrRectNeigh);
                             isNeigh = true
                         }
