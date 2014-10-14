@@ -1,0 +1,70 @@
+<body data-author="bryukh">
+<div class="question-answer">
+    <div class="question">
+        I have no idea how to start solving this mission
+    </div>
+    <div class="answer">
+        One way to check the neighbors is to form a list of "neighbor rules".
+
+<pre class="brush: python">
+NEIGHBORS = ((-1, -1), (-1, 0), (-1, 1), (0, -1),
+              (0, 1), (1, -1), (1, 0), (1, 1))
+</pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I need some help to proceed with the mission
+    </div>
+    <div class="answer">
+        Prepare a count variable and iterate the list to get the neighboring cells:
+<pre class="brush: python">
+count = 0
+for diff in NEIGHBORS:
+    n_row = row + diff[0]
+    n_col = col + diff[1]
+# you can "unpack diff" inside loop
+# for dr, dy in NEIGHBORS:
+</pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I am gone half way through. Need help!
+    </div>
+    <div class="answer">
+        Check if the neighboring cell is inside the grid:
+<pre class="brush: python">
+if 0 <= n_row < len(grid) and 0 <= n_col < len(grid[n_row]):
+    # we can use grid[0] for columns in this mission
+    ...
+</pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I am stuck. I need a small hint.
+    </div>
+    <div class="answer">
+        If the new cell is "correct", check if it's "full":
+<pre class="brush: python">
+if 0 <= n_row < len(grid) and 0 <= n_col < len(grid[n_row]):
+    if grid[n_row][n_col]:
+        count += 1
+# or you can merge it in one "if"
+</pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I tried all I could. Nothing works. SOS
+    </div>
+    <div class="answer">
+        Put all the concepts from the previous hints into one function and return
+        the "count" for the mission to solve it.
+        Be careful with indents, the "if" statement should be under for.
+    </div>
+</div>
+
+
+</body>
