@@ -1,0 +1,115 @@
+<div class="story">
+    <p>
+       「動物と植物は自己複製できるが、ごく最近になって自己複製できる機械も作られてきた…。
+       他の種類の自己複製機械も将来説明され、電気や磁気の複雑さを持たない、単純な機械のモデルが検査や動作させる聴衆のためにそこに動作しているだろう。
+
+        <!-- "Animals and plants can reproduce themselves,
+        but it was only recently shown that machines can be made which also
+        reproduce themselves……. Other kinds of self-reproducing machines
+        will be described, and one simple mechanical
+        model, with no electrical or magnetic complications,
+        will be there in working order for the audience to inspect and operate." -->
+    </p>
+
+    <p>
+        -- Edward Forrest Moore
+    </p>
+
+</div>
+
+<p>
+  セルオートマトンでは、<a href="http://en.wikipedia.org/wiki/Moore_neighborhood">ムーア近傍</a>は2次元の四角の格子での中心のマス目を取り囲む8つのマス目からなる。
+  この近傍はセルオートマトン理論のパイオニアであるエドワード F. ムーアの名前から取られた。多くのボードゲームは部屋のような四角の方形の碁盤目で遊ばれます。
+  いくつかのゲームでは近傍のマス目の状態について知ることがチップ(フィギュアやチェッカー等)の配置や戦略にとって重要となる。
+
+    <!-- In cellular automata, <a href="http://en.wikipedia.org/wiki/Moore_neighborhood">the
+    Moore neighborhood</a> comprises
+    the eight cells surrounding a central cell on a two-dimensional square lattice.
+    The neighborhood is named after Edward F. Moore, a pioneer of cellular automata theory.
+    Many board games are played with a rectangular grid with squares as cells.
+    For some games, it is important to know about the conditions of neighbouring cells for chip
+    (figure, draught etc) placement and strategy. -->
+</p>
+
+<p>
+  あなたは方形のボードゲームの格子にチップがある状態をバイナリの行列で与えられ、1はマス目にチップがあり、0はなにもないマス目を表す。あなたは(0で始まる)行と列の番号の構造からなる、マス目における座標も与えられる。あなたはいくつのチップがこのマス目に近接しているか測定しなければいけない。すべてのマス目はその8つの近傍に影響する、垂直と水平と対角線のマスだ。
+
+    <!-- You are given a state for a rectangular board game grid with chips in a binary matrix, where 1
+    is a cell with a chip and 0 is an empty cell. You are also given the coordinates for a cell in
+    the form of row and column numbers (starting from 0). You should determine how many chips are
+    close to this cell. Every cell interacts with its eight neighbours; those cells that are
+    horizontally, vertically, or diagonally adjacent. -->
+</p>
+
+<p style="text-align: center;">
+    <img title="example" src="{{MEDIA}}example.svg" alt="example"
+         style="max-width: 520px;width: 100%;"/>
+</p>
+
+<p>
+    与えられた例(図を見ること)ではこれと同じ格子がある。
+
+    <!-- For the given examples (see the schema) there is the same grid: -->
+<p>
+<pre>
+((1, 0, 0, 1, 0),
+ (0, 1, 0, 0, 0),
+ (0, 0, 1, 0, 1),
+ (1, 0, 0, 0, 0),
+ (0, 0, 1, 0, 0),)
+</pre>
+<br>
+<p>
+    最初の例では、座標(1,&nbsp;2) で図を見るとこのマス目の周りには3つのチップがある。2つ目の例ではマス目の座標 (0,&nbsp;0) であり、このセルにはチップがあるが、私たちは近傍のもののみ数える。従って結果は1である。
+
+    <!-- For the first example coordinates of the cell is (1,&nbsp;2) and
+    as we can see from the schema this
+    cell has 3 neighbour chips.
+    For the second example coordinates is (0,&nbsp;0) and this cell contains
+    a chip, but we count only neighbours and the answer is 1. -->
+</p>
+<p>
+    <strong>入力</strong> 3つの引数。(1/0)の整数からなる格子を表すタプルのタプル、マス目の列番号の整数、行番号の整数
+
+    <!-- Three arguments. A grid as a tuple of tuples with integers (1/0),
+    a row number and column number for a cell as integers. -->
+</p>
+
+<p>
+    <strong>出力 </strong> 近傍のマス目にいくつのチップがあるかを整数で返す
+
+     <!-- How many neighbouring cells have chips as an integer. -->
+</p>
+
+
+<div class="for_info_only">
+    <p>
+        <strong>例</strong>
+    </p>
+    <pre class="brush: python">
+count_neighbours(((1, 0, 0, 1, 0),
+                  (0, 1, 0, 0, 0),
+                  (0, 0, 1, 0, 1),
+                  (1, 0, 0, 0, 0),
+                  (0, 0, 1, 0, 0),), 1, 2) == 3
+count_neighbours(((1, 0, 0, 1, 0),
+                  (0, 1, 0, 0, 0),
+                  (0, 0, 1, 0, 1),
+                  (1, 0, 0, 0, 0),
+                  (0, 0, 1, 0, 0),), 0, 0) == 1</pre>
+</div>
+<br>
+<p class="for_info_only">
+    <strong>どうやって使われるか </strong>
+    最初に述べたように、このアイデアはボードゲームのアルゴリズムを開発する時に有用だ。付け加えると、同じ原則がナビゲーションソフトや地図の測量を行うソフトに対しても有用だ。
+
+    <!-- As we mentioned in the beginning, this idea can be useful for developing board game algorithms.
+    In addition, the same principles it can be useful for navigational software, or geographical
+    surveying software. -->
+</p>
+
+<p>
+    <strong>事前条件</strong><br>
+    3 &le; len(grid) &le; 10<br>
+    all(len(grid[0]) == len(row) for row in grid)
+</p>
